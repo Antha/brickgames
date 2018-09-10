@@ -197,7 +197,7 @@ var app = {
 
         coor_x = 0;
         for (var i = 0; i < color_square.length; i++) {
-            coor_x = coor_x + 60;
+            coor_x = coor_x + 150;
             walk_x.push(coor_x);
             walk_y.push(10);
             goDown.push(true);
