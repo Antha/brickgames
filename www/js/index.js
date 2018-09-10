@@ -189,7 +189,6 @@ var app = {
         // SQUARE ENEMY
         var width = 10; 
         var height = 10;
-        
 
         var goDown = [];
         var goRight = [];
@@ -198,7 +197,7 @@ var app = {
 
         coor_x = 0;
         for (var i = 0; i < color_square.length; i++) {
-            coor_x = coor_x + 40;
+            coor_x = coor_x + 60;
             walk_x.push(coor_x);
             walk_y.push(10);
             goDown.push(true);
@@ -232,7 +231,6 @@ var app = {
           }else if(e.keyCode == 37) {
             leftPressed = true;
           }
-
         }
 
         function keyUpHandler(e) {
