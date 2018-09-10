@@ -170,6 +170,9 @@ function startBrickGames(){
         setInterval(draw, 30);
 }
 
+var walk_2_x = 0;
+var walk_2_y = 0;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -206,8 +209,6 @@ var app = {
         //PLAYER
         var width_2 = 30;
         var height_2 = 30;
-        var walk_2_x = 0;
-        var walk_2_y = 0;
         var color_square_2 = "orange";
 
         var rightPressed = false;
@@ -341,6 +342,10 @@ var app = {
             drawScore();
         }
 
+        function failure() {
+            alert("Error");
+        }
+
         setInterval(start,50);
 
     },
@@ -357,6 +362,17 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+
+        var watch = navigator.accelerometer.watchAcceleration(success, failure, {frequency: 25});
+
+        function success(accel){
+            walk_2_x += -1*(accel.x * 1.5);
+            walk_2_y += (accel.y * 1.5);                   
+        }
+
+        function failure(){
+            alert("Error");
+        }
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
