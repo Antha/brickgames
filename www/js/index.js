@@ -435,7 +435,7 @@ var app = {
         app.receivedEvent('deviceready');
 
         var watch = navigator.accelerometer.watchAcceleration(success, failure, {frequency: 25});
-        window.plugins.insomnia.keepAwake();
+        //window.plugins.insomnia.keepAwake();
         
         function success(accel){
             walk_2_x += -1*(accel.x * 1.5);
@@ -449,6 +449,8 @@ var app = {
         //CREATE TABLE
         db.transaction(function (tx) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS score(SCORE INTEGER)",
+                [], onSuccess, onError);
+            tx.executeSql("DELETE FROM score",
                 [], onSuccess, onError);
             //tx.executeSql("INSERT INTO todo(todo, added_on) VALUES (?,?)", ['my todo item', new Date().toUTCString()], onSuccess, onError);
         });
