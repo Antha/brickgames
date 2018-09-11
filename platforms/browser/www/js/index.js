@@ -170,6 +170,7 @@ function startBrickGames(){
         setInterval(draw, 30);
 }
 
+//Global Variable
 var walk_2_x = 0;
 var walk_2_y = 0;
 
@@ -179,12 +180,25 @@ var app = {
         this.bindEvents();
 
         var canvas = document.getElementById("myCanvas");
-
         canvas.width  = window.innerWidth;
         canvas.height = window.innerHeight;
         var ctx = canvas.getContext("2d");
-        
-        var color_square = ['red','green','blue','orange','pink','aqua','black','pink','blue'];
+        var imageObj = new Image(); 
+        var Heart = 10;
+        var audio = new Audio('img/Laser-Gun.wav');
+        var audio2 = new Audio('img/laser3.wav');
+        var audio3 = new Audio('img/service.wav');
+            
+
+        //Heart
+        imageObj.src = "img/Img-heart.jpg";
+        imageObj.onload = function(){
+            ctx.drawImage(imageObj,);
+        } 
+
+        // Object Color
+        var color_square = ['blue','blue','blue','blue','blue','blue','blue','blue','blue','blue',
+        'red','red','red','red','red','red','red','red','red','red'];
         
         // SQUARE ENEMY
         var width = 10; 
@@ -208,7 +222,7 @@ var app = {
         //PLAYER
         var width_2 = 30;
         var height_2 = 30;
-        var color_square_2 = "orange";
+        var color_square_2 = "blue";
 
         var rightPressed = false;
         var leftPressed = false;
@@ -217,9 +231,13 @@ var app = {
 
         var score = 0;
 
-
         document.addEventListener("keydown", keyDownHandler, false);
         document.addEventListener("keyup", keyUpHandler, false);
+
+        function reload(){
+            Heart = 10;
+            score = 0;
+        }
 
         function keyDownHandler(e) {
           if(e.keyCode == 38) {
@@ -275,7 +293,6 @@ var app = {
         }
 
         function detectCollision(){
-
             // SQUARE 1
             for (var i = 0; i < walk_x.length; i++) {
                 if(goDown[i] == true){
@@ -284,6 +301,7 @@ var app = {
                         walk_y[i] = walk_y[i]+10;
                     }else{
                         goDown[i] = false;
+                        audio.play();
                     }
                 }
 
@@ -292,6 +310,7 @@ var app = {
                         walk_y[i] = walk_y[i]-10;
                     }else{
                         goDown[i] = true;
+                        audio.play();
                     }
                 }
 
@@ -302,6 +321,7 @@ var app = {
                         walk_y[i] = walk_y[i]+10;
                     }else{
                         goRight[i] = false;
+                        audio.play();
                     }
                 }
 
@@ -310,20 +330,37 @@ var app = {
                         walk_x[i] = walk_x[i]-10;
                     }else{
                         goRight[i] = true;
+                        audio.play();
                     }
                 }
 
-                    //SQUARE 2 + SQUARE 1
+                //SQUARE 2 + SQUARE 1
                 if(walk_x[i] < walk_2_x + width_2 && walk_2_x < walk_x[i] + width && 
                     walk_y[i] < walk_2_y + height_2 && walk_2_y < walk_y[i] + height){
                     
                     if(color_square[i] == color_square_2){
                         score = score + 10;
+                        audio3.play();
                     }else{
-                        score = score - 10;
+                        Heart = Heart - 1;
+                        audio2.play();
                     }
                 }
             }
+        }
+
+        function drawHeart(){
+          var y = 8;  
+          for (var i = 0; i < Heart; i++) {
+             ctx.drawImage(imageObj, y, 30, 20, 20);
+             y = y + 20;
+          }    
+
+          if(Heart == 0){
+            if(confirm("Game Over. Are you want To Continue ?")){
+                reload();
+            }
+          }
         }
 
         function drawScore() {
@@ -333,15 +370,16 @@ var app = {
         }
 
         function start(){
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            detectCollision();
-            walk_square();
-            walk_square2();
-            drawScore();
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          drawHeart();
+          detectCollision();
+          walk_square();
+          walk_square2();
+          drawScore();
         }
 
         function failure() {
-            alert("Error");
+          alert("Error");
         }
 
         setInterval(start,50);
