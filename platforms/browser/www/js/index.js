@@ -179,6 +179,8 @@ var app = {
     initialize: function() {
         this.bindEvents();
 
+        
+
         var canvas = document.getElementById("myCanvas");
         canvas.width  = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -400,7 +402,8 @@ var app = {
         app.receivedEvent('deviceready');
 
         var watch = navigator.accelerometer.watchAcceleration(success, failure, {frequency: 25});
-
+        window.plugins.insomnia.keepAwake();
+        
         function success(accel){
             walk_2_x += -1*(accel.x * 1.5);
             walk_2_y += (accel.y * 1.5);                   
