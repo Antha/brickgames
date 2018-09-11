@@ -171,15 +171,29 @@ function startBrickGames(){
 }
 
 //Global Variable
+//ACC
 var walk_2_x = 0;
 var walk_2_y = 0;
+
+//DATABASE
+var dbSize = 5 * 1024 * 1024; // 5MB
+var db = openDatabase("Todo", "", "Todo manager", dbSize, function() {
+    console.log('db successfully opened or created');
+});
+
+function onSuccess(transaction, resultSet) {
+    console.log('Query completed: ' + JSON.stringify(resultSet));
+}
+
+function onError(transaction, error) {
+    console.log('Query failed: ' + error.message);
+}
+
 
 var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-
-        
 
         var canvas = document.getElementById("myCanvas");
         canvas.width  = window.innerWidth;
@@ -194,9 +208,6 @@ var app = {
 
         //Heart
         imageObj.src = "img/Img-heart.jpg";
-        imageObj.onload = function(){
-            ctx.drawImage(imageObj,);
-        } 
 
         // Object Color
         var color_square = ['blue','blue','blue','blue','blue','blue','blue','blue','blue','blue',
@@ -316,7 +327,6 @@ var app = {
                     }
                 }
 
-
                 if(goRight[i] == true){
                     if(walk_x[i] <= canvas.width - width){
                         walk_x[i] = walk_x[i]+10;
@@ -360,15 +370,37 @@ var app = {
 
           if(Heart == 0){
             if(confirm("Game Over. Are you want To Continue ?")){
-                reload();
+                db.transaction(function (tx) {
+                    //alert(score);
+                    tx.executeSql("INSERT INTO score(SCORE) VALUES (?)",[score], onSuccess, onError);
+                    reload();
+                });
+                
             }
           }
         }
 
         function drawScore() {
+          //score  
           ctx.font = "16px Arial";
           ctx.fillStyle = "#0095DD";
           ctx.fillText("Score: "+score, 8, 20);
+
+          //high score
+          db.transaction(function (tx) { 
+            tx.executeSql('SELECT MAX(SCORE) SCORE FROM score ', [], function (tx, results) { 
+                  var len = results.rows.length, i; 
+
+                  for(var i=0; i<results.rows.length; i++) {
+                    var row = results.rows.item(i);
+                    //document.querySelector('#status').innerHTML += row["todo"]+"<br/>";
+                    ctx.fillText("High Score: "+row["SCORE"], 100, 20);
+                  }
+              
+               }, null); 
+            });
+
+          
         }
 
         function start(){
@@ -383,6 +415,7 @@ var app = {
         function failure() {
           alert("Error");
         }
+        
 
         setInterval(start,50);
 
@@ -412,10 +445,17 @@ var app = {
         function failure(){
             alert("Error");
         }
+
+        //CREATE TABLE
+        db.transaction(function (tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS score(SCORE INTEGER)",
+                [], onSuccess, onError);
+            //tx.executeSql("INSERT INTO todo(todo, added_on) VALUES (?,?)", ['my todo item', new Date().toUTCString()], onSuccess, onError);
+        });
+
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-
         console.log('Received Event: ' + id);
     }
 };
