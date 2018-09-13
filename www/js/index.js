@@ -415,7 +415,6 @@ var app = {
         function failure() {
           alert("Error");
         }
-        
 
         setInterval(start,50);
 
@@ -433,14 +432,14 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-
+        window.plugins.insomnia.keepAwake();
         var watch = navigator.accelerometer.watchAcceleration(success, failure, {frequency: 25});
-        //window.plugins.insomnia.keepAwake();
+        //community.templateplugin.setPreventSleep(true);
         
         function success(accel){
             walk_2_x += -1*(accel.x * 1.5);
             walk_2_y += (accel.y * 1.5);                   
-        }
+        } 
 
         function failure(){
             alert("Error");
@@ -449,8 +448,6 @@ var app = {
         //CREATE TABLE
         db.transaction(function (tx) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS score(SCORE INTEGER)",
-                [], onSuccess, onError);
-            tx.executeSql("DELETE FROM score",
                 [], onSuccess, onError);
             //tx.executeSql("INSERT INTO todo(todo, added_on) VALUES (?,?)", ['my todo item', new Date().toUTCString()], onSuccess, onError);
         });

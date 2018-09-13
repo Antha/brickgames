@@ -166,5 +166,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-preventsleep": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-preventsleep"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

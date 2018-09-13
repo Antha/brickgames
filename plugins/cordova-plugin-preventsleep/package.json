@@ -1,0 +1,59 @@
+{
+  "_from": "cordova-plugin-preventsleep",
+  "_id": "cordova-plugin-preventsleep@1.1.1",
+  "_inBundle": false,
+  "_integrity": "sha1-BlpWtBi6oPMXHkf7PJjJmYGtdCE=",
+  "_location": "/cordova-plugin-preventsleep",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-preventsleep",
+    "name": "cordova-plugin-preventsleep",
+    "escapedName": "cordova-plugin-preventsleep",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-preventsleep/-/cordova-plugin-preventsleep-1.1.1.tgz",
+  "_shasum": "065a56b418baa0f3171e47fb3c98c99981ad7421",
+  "_spec": "cordova-plugin-preventsleep",
+  "_where": "E:\\Phonegap\\Breakeout Game",
+  "author": {
+    "name": "Tim Windsor"
+  },
+  "bugs": {
+    "url": "https://github.com/blackberry/WebWorks-Community-APIs/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-preventsleep",
+    "platforms": [
+      "blackberry10"
+    ]
+  },
+  "deprecated": false,
+  "description": "BlackBerry 10 Community Contributed API to keep the screen on",
+  "homepage": "https://github.com/blackberry/WebWorks-Community-APIs/tree/master/BB10-Cordova/PreventSleep#readme",
+  "keywords": [
+    "blackberry",
+    "prevent",
+    "sleep",
+    "keep-awake",
+    "screen",
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-blackberry10"
+  ],
+  "license": "Apache 2.0",
+  "name": "cordova-plugin-preventsleep",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackberry/WebWorks-Community-APIs.git"
+  },
+  "version": "1.1.1"
+}
