@@ -174,6 +174,7 @@ function startBrickGames(){
 //ACC
 var walk_2_x = 0;
 var walk_2_y = 0;
+var walk_2_go = true;
 
 //DATABASE
 var dbSize = 5 * 1024 * 1024; // 5MB
@@ -195,6 +196,7 @@ var app = {
     initialize: function() {
         this.bindEvents();
 
+        //START
         var canvas = document.getElementById("myCanvas");
         canvas.width  = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -205,7 +207,6 @@ var app = {
         var audio2 = new Audio('img/laser3.wav');
         var audio3 = new Audio('img/service.wav');
             
-
         //Heart
         imageObj.src = "img/Img-heart.jpg";
 
@@ -288,15 +289,33 @@ var app = {
         }
 
         function walk_square2(){
+            
             if(rightPressed == true){
-                walk_2_x = walk_2_x + 17
+                walk_2_x = walk_2_x + 17;
             }else if(leftPressed == true){
-                walk_2_x = walk_2_x - 17
+                walk_2_x = walk_2_x - 17;
             }else if(upPressed == true){
-                walk_2_y = walk_2_y - 17
+                walk_2_y = walk_2_y - 17;
             }else if(downPressed == true){
-                walk_2_y = walk_2_y + 17
+                walk_2_y = walk_2_y + 17;
             }
+
+            if(walk_2_x < 0){
+              walk_2_x = walk_2_x + 17;
+            }
+
+            if(walk_2_x > canvas.width){
+              walk_2_x = walk_2_x - 17;
+            }
+
+            if(walk_2_y < 0){
+              walk_2_y = walk_2_y + 17;
+            }
+
+            if(walk_2_y > canvas.height){
+              walk_2_y = walk_2_y - 17;
+            }
+
 
             ctx.beginPath();
             ctx.rect(walk_2_x,walk_2_y, width_2, height_2);
@@ -437,8 +456,8 @@ var app = {
         //community.templateplugin.setPreventSleep(true);
         
         function success(accel){
-            walk_2_x += -1*(accel.x * 1.5);
-            walk_2_y += (accel.y * 1.5);                   
+          walk_2_x += -1*(accel.x * 1.5);
+          walk_2_y += (accel.y * 1.5);
         } 
 
         function failure(){
