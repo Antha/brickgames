@@ -387,7 +387,7 @@ var app = {
              y = y + 20;
           }    
 
-          if(Heart == 0){
+          if(Heart <= 0){
             if(confirm("Game Over. Are you want To Continue ?")){
                 db.transaction(function (tx) {
                     //alert(score);
