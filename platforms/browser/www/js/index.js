@@ -470,7 +470,9 @@ var app = {
                 [], onSuccess, onError);
             //tx.executeSql("INSERT INTO todo(todo, added_on) VALUES (?,?)", ['my todo item', new Date().toUTCString()], onSuccess, onError);
         });
+        
 
+        document.addEventListener("backbutton", function(){ alert("Hello"); }, false);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
