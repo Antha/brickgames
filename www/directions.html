@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>High Score</title>
+  <title>High Score</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -12,13 +12,7 @@
         <div class="col-md-12">
             <table class="table"> 
                <tr class="text-center">
-                  <td><a href="game.html"><button type="button" class="btn btn-primary">Start</button></a></td>
-               </tr>
-               <tr class="text-center">
-                  <td><a href="highscore.html"><button type="button" class="btn btn-success">High Score</button></a></td>
-               </tr>
-               <tr class="text-center">
-                  <td><button type="button" class="btn btn-warning">Direction</button></td>
+                  <td>Get The Big Blue Score To The Small Blue Square. Don't Get It To Red One.</td>
                </tr>
             </table>
         </div>
@@ -48,22 +42,6 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-        function drawScore() {
-			//high score
-			db.transaction(function (tx) { 
-			tx.executeSql('SELECT MAX(SCORE) SCORE FROM score ', [], function (tx, results) { 
-			      var len = results.rows.length, i; 
-
-			      for(var i=0; i<results.rows.length; i++) {
-			        var row = results.rows.item(i);
-			        //document.querySelector('#status').innerHTML += row["todo"]+"<br/>";
-			        $("#high_score").html(row["SCORE"]);
-			      }
-			  
-			   }, null); 
-			}); 
-        }
-        drawScore(); 
      },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
